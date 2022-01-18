@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final List<MenuRowData> secondMenuRow = [
+final List<MenuRowData> menuRow = [
   MenuRowData(
       Icons.notifications_on, 'Архив', 'Фрольченков, Бар на диване, коктейли'),
   MenuRowData(Icons.privacy_tip, 'Оля',
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: ListView(
-          children: secondMenuRow.map((e) => WidgetRow(data: e)).toList(),
+          children: menuRow.map((e) => WidgetRow(data: e)).toList(),
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
