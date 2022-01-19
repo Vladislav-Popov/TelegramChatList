@@ -57,9 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
+            labelPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
             labelStyle: TextStyle(
-              letterSpacing: 0.1,
-              fontSize: 12,
+              fontSize: 16,
             ),
             tabs: [
               Text('Все'),
