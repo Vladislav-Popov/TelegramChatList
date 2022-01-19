@@ -19,24 +19,30 @@ class MyApp extends StatelessWidget {
 }
 
 final List<MenuRowData> menuRow = [
+  MenuRowData(Icons.notifications_on, 'Архив',
+      'Фрольченков, Бар на диване, коктейли', '10:44'),
   MenuRowData(
-      Icons.notifications_on, 'Архив', 'Фрольченков, Бар на диване, коктейли'),
-  MenuRowData(Icons.privacy_tip, 'Оля',
-      'что dsdffgh jklhkgjhfj klhkgjfhdgjhkj jldfkjlksjdflj jkljsdlkjldksjто'),
-  MenuRowData(Icons.storage, 'Папа', 'Иван, сын моего однокласс=ника'),
-  MenuRowData(Icons.brush, 'Данила', 'Видео'),
+      Icons.privacy_tip,
+      'Оля',
+      'что dsdffgh jklhkgjhfj klhkgjfhdgjhkj jldfkjlksjdflj jkljsdlkjldksjто',
+      'вчера'),
+  MenuRowData(Icons.storage, 'Папа', 'Иван, сын моего однокласс=ника', '10:44'),
+  MenuRowData(Icons.brush, 'Данила', 'Видео', '14:22'),
   MenuRowData(Icons.language, 'Килограмм срача',
-      'Салават Газизов ну поднималовь до 132'),
-  MenuRowData(Icons.print, 'LazyLoad Dart', 'Dmitry Dmitry'),
-  MenuRowData(Icons.airplane_ticket, 'Новороссийск ДТП', 'ДТП было в 5 утра.'),
+      'Салават Газизов ну поднималовь до 132', '21:55'),
+  MenuRowData(Icons.print, 'LazyLoad Dart', 'Dmitry Dmitry', '4:54'),
+  MenuRowData(
+      Icons.airplane_ticket, 'Новороссийск ДТП', 'ДТП было в 5 утра.', '10:20'),
 ];
 
 class MenuRowData {
   final IconData avatar;
   final String contactName;
   final String textMessage;
+  final String messageTime;
 
-  MenuRowData(this.avatar, this.contactName, this.textMessage);
+  MenuRowData(
+      this.avatar, this.contactName, this.textMessage, this.messageTime);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -120,37 +126,20 @@ class WidgetRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 25,
-            child: Icon(
-              data.avatar,
-              size: 40,
-            ),
-          ),
-          SizedBox(
-            width: 16,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  data.contactName,
-                  style: TextStyle(fontSize: 16),
-                ),
-                Text(
-                  data.textMessage,
-                  maxLines: 1,
-                ),
-              ],
-            ),
-          ),
-        ],
+      child: ListTile(
+        leading: CircleAvatar(
+          child: Icon(data.avatar),
+        ),
+        title: Text(data.contactName),
+        subtitle: Text(data.textMessage),
+        trailing: Column(
+          children: [
+            Text(data.messageTime),
+            Expanded(child: Icon(Icons.chevron_right)),
+          ],
+        ),
+        isThreeLine: true,
       ),
-    ));
+    );
   }
 }
