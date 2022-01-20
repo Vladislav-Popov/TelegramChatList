@@ -9,7 +9,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TelegramChat',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -45,17 +44,11 @@ class MenuRowData {
       this.avatar, this.contactName, this.textMessage, this.messageTime);
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 1,
@@ -81,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 18),
             ),
           ),
-          title: Text(widget.title),
+          title: Text('Чаты'),
           actions: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -127,6 +120,14 @@ class WidgetRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListTile(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(),
+            ),
+          );
+        },
         leading: CircleAvatar(
           child: Icon(data.avatar),
         ),
@@ -139,6 +140,19 @@ class WidgetRow extends StatelessWidget {
           ],
         ),
         isThreeLine: true,
+      ),
+    );
+  }
+}
+
+class ChatScreen extends StatelessWidget {
+  const ChatScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Выбранный чат'),
       ),
     );
   }
