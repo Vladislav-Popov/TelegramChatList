@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: MyHomePage(title: 'Чаты'),
     );
@@ -25,7 +25,7 @@ final List<MenuRowData> menuRow = [
       'Оля',
       'что dsdffgh jklhkgjhfj klhkgjfhdgjhkj jldfkjlksjdflj jkljsdlkjldksjто',
       'вчера'),
-  MenuRowData(Icons.storage, 'Папа', 'Иван, сын моего однокласс=ника', '10:44'),
+  MenuRowData(Icons.storage, 'Папа', 'Иван, сын моего одноклассника', '10:44'),
   MenuRowData(Icons.brush, 'Данила', 'Видео', '14:22'),
   MenuRowData(Icons.language, 'Килограмм срача',
       'Салават Газизов ну поднималовь до 132', '21:55'),
@@ -82,9 +82,11 @@ class MyHomePage extends StatelessWidget {
             )
           ],
         ),
-        body: ListView(
-          children: menuRow.map((e) => WidgetRow(data: e)).toList(),
-        ),
+        body: ListView.builder(
+            itemCount: menuRow.length,
+            itemBuilder: (context, index) {
+              return WidgetRow(data: menuRow[index]);
+            }),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
@@ -105,7 +107,7 @@ class MyHomePage extends StatelessWidget {
               label: 'Настройки',
             ),
           ],
-          selectedItemColor: Colors.blue,
+          selectedItemColor: Colors.black,
         ),
       ),
     );
@@ -116,7 +118,6 @@ class WidgetRow extends StatelessWidget {
   final MenuRowData data;
   const WidgetRow({Key? key, required this.data}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -125,7 +126,9 @@ class WidgetRow extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChatScreen(),
+              builder: (context) => ChatScreen(
+                dataSecondScreen: data,
+              ),
             ),
           );
         },
@@ -133,7 +136,10 @@ class WidgetRow extends StatelessWidget {
           child: Icon(data.avatar),
         ),
         title: Text(data.contactName),
-        subtitle: Text(data.textMessage),
+        subtitle: Text(
+          data.textMessage,
+          maxLines: 1,
+        ),
         trailing: Column(
           children: [
             Text(data.messageTime),
@@ -147,13 +153,18 @@ class WidgetRow extends StatelessWidget {
 }
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key}) : super(key: key);
-
+  const ChatScreen({Key? key, required this.dataSecondScreen})
+      : super(key: key);
+  final MenuRowData dataSecondScreen;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Выбранный чат'),
+        title: Text(dataSecondScreen.contactName),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(26.0),
+        child: Text(dataSecondScreen.textMessage),
       ),
     );
   }
