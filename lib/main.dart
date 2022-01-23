@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blueGrey,
       ),
       home: MyHomePage(title: 'Чаты'),
     );
@@ -18,6 +18,20 @@ class MyApp extends StatelessWidget {
 }
 
 final List<MenuRowData> menuRow = [
+  MenuRowData(Icons.notifications_on, 'Архив',
+      'Фрольченков, Бар на диване, коктейли', '10:44'),
+  MenuRowData(
+      Icons.privacy_tip,
+      'Оля',
+      'что dsdffgh jklhkgjhfj klhkgjfhdgjhkj jldfkjlksjdflj jkljsdlkjldksjто',
+      'вчера'),
+  MenuRowData(Icons.storage, 'Папа', 'Иван, сын моего одноклассника', '10:44'),
+  MenuRowData(Icons.brush, 'Данила', 'Видео', '14:22'),
+  MenuRowData(Icons.language, 'Килограмм срача',
+      'Салават Газизов ну поднималовь до 132', '21:55'),
+  MenuRowData(Icons.print, 'LazyLoad Dart', 'Dmitry Dmitry', '4:54'),
+  MenuRowData(
+      Icons.airplane_ticket, 'Новороссийск ДТП', 'ДТП было в 5 утра.', '10:20'),
   MenuRowData(Icons.notifications_on, 'Архив',
       'Фрольченков, Бар на диване, коктейли', '10:44'),
   MenuRowData(
@@ -107,7 +121,6 @@ class MyHomePage extends StatelessWidget {
               label: 'Настройки',
             ),
           ],
-          selectedItemColor: Colors.black,
         ),
       ),
     );
@@ -126,9 +139,8 @@ class WidgetRow extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChatScreen(
-                dataSecondScreen: data,
-              ),
+              builder: (context) => ChatScreen(),
+              settings: RouteSettings(arguments: data),
             ),
           );
         },
@@ -153,18 +165,36 @@ class WidgetRow extends StatelessWidget {
 }
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key, required this.dataSecondScreen})
-      : super(key: key);
-  final MenuRowData dataSecondScreen;
+  ChatScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)!.settings.arguments as MenuRowData;
     return Scaffold(
       appBar: AppBar(
-        title: Text(dataSecondScreen.contactName),
+        automaticallyImplyLeading: false,
+        title: Text(data.contactName),
       ),
       body: Padding(
         padding: const EdgeInsets.all(26.0),
-        child: Text(dataSecondScreen.textMessage),
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(data.textMessage),
+              SizedBox(
+                height: 30,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Назад'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
