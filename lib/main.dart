@@ -106,30 +106,6 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
-
-  BottomNavigationBar BottomNavigationBarVidget() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.contact_page),
-          label: 'Контакты',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.call),
-          label: 'Звонки',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.chat),
-          label: 'Чаты',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Настройки',
-        ),
-      ],
-    );
-  }
 }
 
 class BottomNavBarWidget extends StatefulWidget {
