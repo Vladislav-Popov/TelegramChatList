@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled1/userProfile.dart';
 
 void main() {
   runApp(MyApp());
@@ -101,28 +102,94 @@ class MyHomePage extends StatelessWidget {
             itemBuilder: (context, index) {
               return WidgetRow(data: menuRow[index]);
             }),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.contact_page),
-              label: 'Контакты',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.call),
-              label: 'Звонки',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat),
-              label: 'Чаты',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Настройки',
-            ),
-          ],
-        ),
+        bottomNavigationBar: BottomNavBarWidget(),
       ),
+    );
+  }
+
+  BottomNavigationBar BottomNavigationBarVidget() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.contact_page),
+          label: 'Контакты',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.call),
+          label: 'Звонки',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.chat),
+          label: 'Чаты',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Настройки',
+        ),
+      ],
+    );
+  }
+}
+
+class BottomNavBarWidget extends StatefulWidget {
+  const BottomNavBarWidget({Key? key}) : super(key: key);
+
+  @override
+  State<BottomNavBarWidget> createState() => _BottomNavBarWidgetState();
+}
+
+class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
+  int selectedIndex = 0;
+
+  void onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+      switch (index) {
+        case 0:
+          print("Контакты");
+          break;
+        case 1:
+          print("Звонки");
+          break;
+        case 2:
+          print("Чаты");
+          break;
+        case 3:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserProfile()),
+          );
+          break;
+        default:
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.contact_page),
+          label: 'Контакты',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.call),
+          label: 'Звонки',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.chat),
+          label: 'Чаты',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Настройки',
+        ),
+      ],
+      currentIndex: selectedIndex,
+      onTap: onItemTapped,
     );
   }
 }
